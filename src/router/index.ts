@@ -49,9 +49,19 @@ const router = createRouter({
           name: '创建题目',
           component: () => import('@/views/question/AddQuestion.vue'),
           meta: {
-            access: ACCESS_ENUM.ADMIN
+            access: ACCESS_ENUM.ADMIN,
+            roles: ['admin']
           }
         },
+        {
+          path: '/manage/question/',
+          name: '管理题目',
+          component: () => import('@/views/question/ManagerQuestion.vue'),
+          meta: {
+            access: ACCESS_ENUM.ADMIN,
+            roles: ['admin']
+          }
+        }
       ]
     },
     {

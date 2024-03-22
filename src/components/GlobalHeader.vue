@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import routers from '@/router'
-import { watch, computed, ref } from 'vue'
+import { watch, computed, ref, onMounted } from 'vue'
 import { useUserStore } from '@/stores/user'
 import checkAccess from '@/access/checkAccess'
 import ACCESS_ENUM from '@/access/accessEnum'
@@ -44,7 +44,9 @@ console.log(loginUser.value.userName)
 const visiableRoutes = computed(() => {
   return homeRoutes?.filter((item) => {
     if (checkAccess(userStore.loginUser, item.meta?.roles as string[])) {
-      return true
+      if (!item.meta?.isHide) {
+        return true
+      }
     }
   })
 })
@@ -54,16 +56,15 @@ router.afterEach((to) => {
   selectedKeys.value = [to.path]
 })
 
+onMounted(() => {
+  selectedKeys.value = [router.currentRoute.value.path]
+})
+
 const doMenuClick = async (key: string) => {
   router.push({
     path: key
   })
 }
-
-const stopAgeWatcher = watch(loginUser, (value, oldValue) => {
-  console.log(value, oldValue)
-  stopAgeWatcher() // 当ageRef大于18，停止侦听
-})
 </script>
 
 <style scoped>

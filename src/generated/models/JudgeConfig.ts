@@ -2,9 +2,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-export type BaseResponse_string_ = {
-    code?: number;
-    data?: string;
-    message?: string;
+export type JudgeConfig = {
+    memoryLimit?: number;
+    stackLimit?: number;
+    timeLimit?: number;
 };
 
